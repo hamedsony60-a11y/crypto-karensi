@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>پشتیبانی | کریپتوکارنسی</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%238B5CF6'/%3E%3Cstop offset='50%25' stop-color='%2300D4FF'/%3E%3Cstop offset='100%25' stop-color='%23D4AF37'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%230B0E11'/%3E%3Cpath d='M75 25 A30 30 0 1 0 75 75' fill='none' stroke='url(%23g)' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M70 20 L90 10 L80 35 Z' fill='%2300D4FF'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<header class="header">
+  <a href="index.html" class="logo"><svg viewBox="0 0 100 100"><defs><linearGradient id="lg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="50%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs><path d="M75 25 A30 30 0 1 0 75 75" fill="none" stroke="url(#lg)" stroke-width="12" stroke-linecap="round"/><path d="M70 20 L90 10 L80 35 Z" fill="#00D4FF"/></svg>کریپتوکارنسی</a>
+  <nav class="nav"><a href="index.html">بازار</a><a href="support.html">پشتیبانی</a><a href="markets.html">بازارها</a></nav>
+  <div class="header-actions" id="authB"><button class="btn btn-outline btn-sm" onclick="openM('loginM')">ورود</button><button class="btn btn-primary btn-sm" onclick="openM('regM')">ثبت‌نام</button></div>
+  <div class="header-actions" id="userI" style="display:none"><span style="color:var(--primary);font-weight:600" id="un"></span><button class="btn btn-outline btn-sm" onclick="logout()">خروج</button></div>
+</header>
+<div class="container" style="padding-top:20px;max-width:900px">
+  <h1 class="page-title">پشتیبانی</h1>
+  <p class="page-sub">۲۴ ساعته · پاسخ زیر ۲ دقیقه</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-bottom:24px">
+    <div class="card" style="text-align:center"><div style="font-size:1.5rem;margin-bottom:8px">💬</div><h3 style="font-size:0.95rem;margin-bottom:8px">چت</h3><button class="btn btn-primary btn-sm" onclick="toast('چت باز شد')">شروع</button></div>
+    <div class="card" style="text-align:center"><div style="font-size:1.5rem;margin-bottom:8px">🎫</div><h3 style="font-size:0.95rem;margin-bottom:8px">تیکت</h3><button class="btn btn-outline btn-sm" onclick="toast('تیکت باز شد')">ارسال</button></div>
+    <div class="card" style="text-align:center"><div style="font-size:1.5rem;margin-bottom:8px">📞</div><h3 style="font-size:0.95rem;margin-bottom:8px">تماس</h3><button class="btn btn-outline btn-sm" onclick="toast('۰۲۱-۹۱۰۰۱۲۳۴')">شماره</button></div>
+    <div class="card" style="text-align:center"><div style="font-size:1.5rem;margin-bottom:8px">❓</div><h3 style="font-size:0.95rem;margin-bottom:8px">FAQ</h3><button class="btn btn-outline btn-sm" onclick="toast('FAQ')">مشاهده</button></div>
+  </div>
+  <div class="card">
+    <h3 style="margin-bottom:12px;font-size:0.95rem">سوالات پرتکرار</h3>
+    <div style="border-bottom:1px solid var(--border);padding:12px 0;font-size:0.9rem"><b>احراز هویت چقدر طول می‌کشد؟</b><div style="color:var(--muted);margin-top:4px;font-size:0.85rem">معمولاً کمتر از ۵ دقیقه.</div></div>
+    <div style="border-bottom:1px solid var(--border);padding:12px 0;font-size:0.9rem"><b>برداشت چقدر زمان می‌برد؟</b><div style="color:var(--muted);margin-top:4px;font-size:0.85rem">تومان تا ۱ ساعت · رمزارز وابسته به شبکه.</div></div>
+    <div style="padding:12px 0;font-size:0.9rem"><b>کارمزد چقدر است؟</b><div style="color:var(--muted);margin-top:4px;font-size:0.85rem">از ۰.۰۵٪ با CRYPTO.</div></div>
+  </div>
+</div>
+<footer class="footer"><p style="font-size:0.75rem">کریپتوکارنسی</p></footer>
+<div class="modal-bg" id="loginM"><div class="modal"><button class="modal-close" onclick="closeM('loginM')">×</button><h3>ورود</h3><div class="form-group"><label>موبایل</label><input class="form-control" id="lu"/></div><div class="form-group"><label>رمز</label><input type="password" class="form-control" id="lp"/></div><button class="btn btn-primary" style="width:100%;padding:12px" onclick="login()">ورود</button></div></div>
+<div class="modal-bg" id="regM"><div class="modal"><button class="modal-close" onclick="closeM('regM')">×</button><h3>ثبت‌نام</h3><div class="form-group"><label>موبایل</label><input class="form-control" id="rm"/></div><div class="form-group"><label>رمز</label><input type="password" class="form-control" id="rp"/></div><button class="btn btn-primary" style="width:100%;padding:12px" onclick="reg()">ثبت‌نام</button></div></div>
+<script src="app.js"></script>
+</body>
+</html>
