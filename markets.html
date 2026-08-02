@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>بازارها | کریپتوکارنسی</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%238B5CF6'/%3E%3Cstop offset='50%25' stop-color='%2300D4FF'/%3E%3Cstop offset='100%25' stop-color='%23D4AF37'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%230B0E11'/%3E%3Cpath d='M75 25 A30 30 0 1 0 75 75' fill='none' stroke='url(%23g)' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M70 20 L90 10 L80 35 Z' fill='%2300D4FF'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<header class="header">
+  <a href="index.html" class="logo"><svg viewBox="0 0 100 100"><defs><linearGradient id="lg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="50%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs><path d="M75 25 A30 30 0 1 0 75 75" fill="none" stroke="url(#lg)" stroke-width="12" stroke-linecap="round"/><path d="M70 20 L90 10 L80 35 Z" fill="#00D4FF"/></svg>کریپتوکارنسی</a>
+  <nav class="nav">
+    <a href="index.html">بازار</a><a href="trade.html">معامله</a><a href="markets.html" class="active">همه بازارها</a>
+    <a href="easy-buy.html">خرید آسان</a><a href="wallet.html">کیف پول</a>
+  </nav>
+  <div class="header-actions" id="authB"><button class="btn btn-outline btn-sm" onclick="openM('loginM')">ورود</button><button class="btn btn-primary btn-sm" onclick="openM('regM')">ثبت‌نام</button></div>
+  <div class="header-actions" id="userI" style="display:none"><span style="color:var(--primary);font-weight:600" id="un"></span><button class="btn btn-outline btn-sm" onclick="logout()">خروج</button></div>
+</header>
+<div class="container">
+  <h1 class="page-title">بازارها</h1>
+  <p class="page-sub">بیش از <strong id="coinCount">۵۲۰</strong> رمزارز</p>
+  <div class="search-bar"><input type="text" id="search" placeholder="جستجو..." oninput="filterMarkets()"/></div>
+  <div class="filter-tabs">
+    <button class="active" id="f-all" onclick="setFilter('all')">همه</button>
+    <button id="f-hot" onclick="setFilter('hot')">پرطرفدار</button>
+    <button id="f-gainers" onclick="setFilter('gainers')">صعودی</button>
+    <button id="f-losers" onclick="setFilter('losers')">نزولی</button>
+  </div>
+  <p style="color:var(--muted);font-size:0.85rem;margin-bottom:12px">نمایش: <span id="showing">۰</span></p>
+  <div class="card markets-wrap" style="max-height:70vh;overflow-y:auto;padding:0">
+    <table class="markets"><thead style="position:sticky;top:0;background:var(--elev);z-index:1"><tr><th>#</th><th>رمزارز</th><th>قیمت</th><th>۲۴س</th><th>حجم</th><th></th></tr></thead><tbody id="marketsBody"></tbody></table>
+  </div>
+</div>
+<footer class="footer"><p style="font-size:0.75rem">کریپتوکارنسی</p></footer>
+<div class="modal-bg" id="loginM"><div class="modal"><button class="modal-close" onclick="closeM('loginM')">×</button><h3>ورود</h3><div class="form-group"><label>موبایل</label><input class="form-control" id="lu"/></div><div class="form-group"><label>رمز</label><input type="password" class="form-control" id="lp"/></div><button class="btn btn-primary" style="width:100%;padding:12px" onclick="login()">ورود</button></div></div>
+<div class="modal-bg" id="regM"><div class="modal"><button class="modal-close" onclick="closeM('regM')">×</button><h3>ثبت‌نام</h3><div class="form-group"><label>موبایل</label><input class="form-control" id="rm"/></div><div class="form-group"><label>رمز</label><input type="password" class="form-control" id="rp"/></div><button class="btn btn-primary" style="width:100%;padding:12px" onclick="reg()">ثبت‌نام</button></div></div>
+<script src="app.js"></script>
+<script>
+(function(){
+  var BASE=[["BTC","Bitcoin","#F7931A",2.4,"6,840,000,000"],["ETH","Ethereum","#627EEA",1.8,"185,200,000"],["USDT","Tether","#26A17B",-0.1,"68,450"],["BNB","BNB","#F3BA2F",3.1,"42,800,000"],["SOL","Solana","#00FFA3",4.2,"12,400,000"],["XRP","XRP","#23292F",-1.2,"4,120,000"],["CRYPTO","CRYPTO","#00D4FF",8.6,"12,850"],["DOGE","Dogecoin","#C2A633",5.6,"12,850"],["ADA","Cardano","#0033AD",0.8,"485,000"],["PEPE","Pepe","#3C9E3C",12.4,"0.85"],["AVAX","Avalanche","#E84142",2.9,"2,950,000"],["LINK","Chainlink","#2A5ADA",1.5,"1,240,000"],["DOT","Polkadot","#E6007A",-2.3,"580,000"],["FIL","Filecoin","#0090FF",-3.1,"420,000"],["NEAR","NEAR","#333",6.1,"485,000"]];
+  var NAMES="Arweave Helium Mina Celo Harmony Stacks Oasis Sei Celestia Pyth Jito Wormhole Starknet Blast Mantle Notcoin Hamster Dogs Major Blum Memefi Popcat Brett Turbo Rocket Apex Core Bridge Vault Yield Stake Token Gold Diamond Moon Star Galaxy Bull Bear Whale".split(" ");
+  var COINS=[];
+  for(var b=0;b<BASE.length;b++){var x=BASE[b];COINS.push({s:x[0],n:x[1],color:x[2],c:x[3],p:x[4],v:(10+Math.abs(x[3])*20|0)+"B",cat:Math.abs(x[3])>3||b<10?"hot":""});}
+  for(var i=0;COINS.length<520;i++){var name=NAMES[i%NAMES.length]+(i>=NAMES.length?" "+(i+1):"");var s=(NAMES[i%NAMES.length].slice(0,4).toUpperCase()+(i%99)).slice(0,6);var c=Math.round((Math.sin(i*1.7)*10+Math.cos(i*0.3)*5)*10)/10;var color="#"+((i*2654435761)>>>0).toString(16).slice(0,6);while(color.length<7)color+="0";COINS.push({s:s,n:name,color:color,c:c,p:String(Math.abs((i*7919)%999999)),v:((i%200)+1)+"B",cat:Math.abs(c)>5?"hot":""});}
+  var filter="all";
+  function render(list){document.getElementById("showing").textContent=list.length;document.getElementById("coinCount").textContent=COINS.length;var h="";for(var i=0;i<list.length;i++){var c=list[i],cls=c.c>=0?"up":"down",sign=c.c>=0?"+":"";h+="<tr><td style='color:var(--muted)'>"+(i+1)+"</td><td><div class='coin-cell'><div class='coin-icon' style='background:"+c.color+";color:#fff;font-size:0.6rem'>"+String(c.s).slice(0,3)+"</div><div><div class='coin-name'>"+c.n+"</div><div class='coin-sym'>"+c.s+"</div></div></div></td><td style='font-weight:600'>"+c.p+"</td><td class='"+cls+"'>"+sign+c.c+"%</td><td style='color:var(--muted)'>"+c.v+"</td><td><a href='trade.html' class='btn btn-primary btn-sm'>معامله</a></td></tr>";}document.getElementById("marketsBody").innerHTML=h;}
+  window.filterMarkets=function(){var q=(document.getElementById("search").value||"").trim().toLowerCase();var list=COINS.slice();if(filter==="hot")list=list.filter(function(c){return c.cat==="hot"});if(filter==="gainers")list=list.filter(function(c){return c.c>0}).sort(function(a,b){return b.c-a.c});if(filter==="losers")list=list.filter(function(c){return c.c<0}).sort(function(a,b){return a.c-b.c});if(q)list=list.filter(function(c){return (c.n||"").toLowerCase().indexOf(q)>=0||(c.s||"").toLowerCase().indexOf(q)>=0});render(list);};
+  window.setFilter=function(f){filter=f;["all","hot","gainers","losers"].forEach(function(x){var btn=document.getElementById("f-"+x);if(btn)btn.className=(x===f)?"active":"";});filterMarkets();};
+  filterMarkets();
+})();
+</script>
+</body>
+</html>
