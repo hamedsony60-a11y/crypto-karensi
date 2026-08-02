@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>کریپتوکارنسی | بازار رمزارز</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%238B5CF6'/%3E%3Cstop offset='50%25' stop-color='%2300D4FF'/%3E%3Cstop offset='100%25' stop-color='%23D4AF37'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='20' fill='%230B0E11'/%3E%3Cpath d='M75 25 A30 30 0 1 0 75 75' fill='none' stroke='url(%23g)' stroke-width='12' stroke-linecap='round'/%3E%3Cpath d='M70 20 L90 10 L80 35 Z' fill='%2300D4FF'/%3E%3C/svg%3E"/>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.home-top{display:grid;grid-template-columns:1fr 340px;gap:16px;margin-bottom:20px}
+@media(max-width:960px){.home-top{grid-template-columns:1fr}}
+.quick-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+@media(max-width:700px){.quick-stats{grid-template-columns:repeat(2,1fr)}}
+.qstat{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px 12px}
+.qstat .lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px}
+.qstat .val{font-size:1.05rem;font-weight:700}
+.qstat .sub{font-size:.75rem;margin-top:2px}
+.quick-trade{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px}
+.quick-trade h3{font-size:.95rem;margin-bottom:14px;font-weight:700}
+.gainers-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+@media(max-width:700px){.gainers-grid{grid-template-columns:1fr}}
+.gainer-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px}
+.gainer-card h4{font-size:.8rem;color:var(--muted);margin-bottom:10px;font-weight:600;display:flex;justify-content:space-between}
+.g-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.g-row:last-child{border-bottom:none}
+.tools-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:24px}
+@media(max-width:900px){.tools-row{grid-template-columns:repeat(3,1fr)}}
+.tool-btn{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 10px;text-align:center;display:block}
+.tool-btn:hover{border-color:var(--primary);background:var(--primary-bg)}
+.tool-btn .ic{font-size:1.3rem;margin-bottom:6px}
+.tool-btn .tx{font-size:.8rem;font-weight:600}
+.home-markets table{width:100%;border-collapse:collapse;font-size:.85rem}
+.home-markets th{text-align:right;padding:11px 12px;color:var(--muted);font-size:.75rem;font-weight:600;border-bottom:1px solid var(--border);background:var(--elev)}
+.home-markets td{padding:11px 12px;border-bottom:1px solid var(--border)}
+.tabs-inline{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tabs-inline button{background:var(--elev);border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:6px;font-size:.8rem;cursor:pointer}
+.tabs-inline button.on{background:var(--primary-bg);border-color:var(--primary);color:var(--primary)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<header class="header">
+  <a href="index.html" class="logo">
+    <svg viewBox="0 0 100 100"><defs><linearGradient id="lg" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#8B5CF6"/><stop offset="50%" stop-color="#00D4FF"/><stop offset="100%" stop-color="#D4AF37"/></linearGradient></defs><path d="M75 25 A30 30 0 1 0 75 75" fill="none" stroke="url(#lg)" stroke-width="12" stroke-linecap="round"/><path d="M70 20 L90 10 L80 35 Z" fill="#00D4FF"/></svg>
+    کریپتوکارنسی
+  </a>
+  <nav class="nav">
+    <a href="index.html" class="active">بازار</a>
+    <a href="trade.html">معامله</a>
+    <a href="margin.html">مارجین</a>
+    <a href="easy-buy.html">خرید آسان</a>
+    <a href="p2p.html">P2P</a>
+    <a href="wallet.html">کیف پول</a>
+    <a href="markets.html">همه بازارها</a>
+  </nav>
+  <div class="header-actions" id="authB">
+    <button class="btn btn-outline btn-sm" onclick="openM('loginM')">ورود</button>
+    <button class="btn btn-primary btn-sm" onclick="openM('regM')">ثبت‌نام</button>
+  </div>
+  <div class="header-actions" id="userI" style="display:none">
+    <span style="color:var(--primary);font-weight:600;font-size:0.9rem" id="un"></span>
+    <button class="btn btn-outline btn-sm" onclick="logout()">خروج</button>
+  </div>
+</header>
+<div class="ticker"><div class="ticker-inner">
+<span>BTC <b class="up">6,840,000,000</b> <b class="up">+2.4%</b></span>
+<span>ETH <b class="up">185,200,000</b> <b class="up">+1.8%</b></span>
+<span>SOL <b class="up">12,400,000</b> <b class="up">+4.2%</b></span>
+<span>USDT <b>68,450</b></span>
+<span>CRYPTO <b class="up">12,850</b> <b class="up">+8.6%</b></span>
+<span>BTC <b class="up">6,840,000,000</b> <b class="up">+2.4%</b></span>
+<span>ETH <b class="up">185,200,000</b> <b class="up">+1.8%</b></span>
+<span>SOL <b class="up">12,400,000</b> <b class="up">+4.2%</b></span>
+</div></div>
+<div class="container" style="padding-top:16px">
+  <div class="quick-stats">
+    <div class="qstat"><div class="lbl">حجم ۲۴ ساعته</div><div class="val">۸,۴۲۰ میلیارد</div><div class="sub up">+۱۲٪</div></div>
+    <div class="qstat"><div class="lbl">بازارهای فعال</div><div class="val">۵۲۰</div><div class="sub" style="color:var(--muted)">تومان / تتر</div></div>
+    <div class="qstat"><div class="lbl">BTC / تومان</div><div class="val" style="color:var(--primary)">6,840M</div><div class="sub up">+2.4%</div></div>
+    <div class="qstat"><div class="lbl">کارمزد اسپات</div><div class="val">۰.۱۰٪</div><div class="sub" style="color:var(--muted)">با CRYPTO: ۰.۰۵٪</div></div>
+  </div>
+  <div class="home-top">
+    <div>
+      <div class="tabs-inline">
+        <button class="on" onclick="homeTab(this,'all')">همه</button>
+        <button onclick="homeTab(this,'hot')">پرطرفدار</button>
+        <button onclick="homeTab(this,'up')">رشد</button>
+        <button onclick="homeTab(this,'down')">ریزش</button>
+        <a href="markets.html" style="margin-right:auto;font-size:0.8rem;color:var(--primary);align-self:center">همه ۵۲۰ بازار ←</a>
+      </div>
+      <div class="card home-markets" style="padding:0;max-height:420px;overflow-y:auto">
+        <table><thead><tr><th>رمزارز</th><th>قیمت</th><th>۲۴س</th><th>حجم</th><th></th></tr></thead><tbody id="homeBody"></tbody></table>
+      </div>
+    </div>
+    <div class="quick-trade">
+      <h3>معامله سریع</h3>
+      <div class="tabs" style="margin-bottom:12px">
+        <button class="tab active-buy" id="qtBuy" onclick="qtSide('buy')">خرید</button>
+        <button class="tab" id="qtSell" onclick="qtSide('sell')">فروش</button>
+      </div>
+      <div class="form-group"><label>جفت</label><select class="form-control"><option>BTC / تومان</option><option>ETH / تومان</option><option>SOL / تومان</option><option>CRYPTO / تومان</option></select></div>
+      <div class="form-group"><label>مبلغ (تومان)</label><input class="form-control" id="qtAmt" value="10000000" oninput="qtCalc()"/></div>
+      <div class="form-group"><label>دریافت تقریبی</label><input class="form-control" id="qtGet" value="0.00146 BTC" readonly style="opacity:.85"/></div>
+      <button class="btn btn-green" id="qtBtn" style="width:100%;padding:13px" onclick="qtSubmit()">خرید BTC</button>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <a href="trade.html" class="btn btn-outline btn-sm" style="flex:1">پنل کامل</a>
+        <a href="easy-buy.html" class="btn btn-outline btn-sm" style="flex:1">خرید آسان</a>
+      </div>
+    </div>
+  </div>
+  <div class="gainers-grid">
+    <div class="gainer-card">
+      <h4><span>بیشترین رشد</span><span class="up">▲</span></h4>
+      <div class="g-row"><span>PEPE</span><span class="up">+12.4%</span></div>
+      <div class="g-row"><span>BONK</span><span class="up">+11.2%</span></div>
+      <div class="g-row"><span>CRYPTO</span><span class="up">+8.6%</span></div>
+      <div class="g-row"><span>SOL</span><span class="up">+4.2%</span></div>
+    </div>
+    <div class="gainer-card">
+      <h4><span>بیشترین ریزش</span><span class="down">▼</span></h4>
+      <div class="g-row"><span>FIL</span><span class="down">-3.1%</span></div>
+      <div class="g-row"><span>DOT</span><span class="down">-2.3%</span></div>
+      <div class="g-row"><span>XRP</span><span class="down">-1.2%</span></div>
+      <div class="g-row"><span>ATOM</span><span class="down">-1.5%</span></div>
+    </div>
+  </div>
+  <div class="tools-row">
+    <a href="margin.html" class="tool-btn"><div class="ic">📊</div><div class="tx">مارجین</div></a>
+    <a href="p2p.html" class="tool-btn"><div class="ic">🤝</div><div class="tx">P2P</div></a>
+    <a href="bots.html" class="tool-btn"><div class="ic">🤖</div><div class="tx">بات</div></a>
+    <a href="staking.html" class="tool-btn"><div class="ic">💎</div><div class="tx">استیکینگ</div></a>
+    <a href="wallet.html" class="tool-btn"><div class="ic">💼</div><div class="tx">کیف پول</div></a>
+    <a href="support.html" class="tool-btn"><div class="ic">💬</div><div class="tx">پشتیبانی</div></a>
+  </div>
+</div>
+<footer class="footer">
+  <div style="display:flex;flex-wrap:wrap;gap:12px 20px;justify-content:center;margin-bottom:12px;font-size:0.82rem">
+    <a href="markets.html">بازارها</a><a href="trade.html">معامله</a><a href="margin.html">مارجین</a>
+    <a href="easy-buy.html">خرید آسان</a><a href="wallet.html">کیف پول</a><a href="support.html">پشتیبانی</a>
+  </div>
+  <p style="font-size:0.75rem">کریپتوکارنسی · Crypto Karensi</p>
+</footer>
+<div class="modal-bg" id="loginM"><div class="modal">
+  <button class="modal-close" onclick="closeM('loginM')">×</button>
+  <h3>ورود</h3>
+  <div class="form-group"><label>موبایل</label><input class="form-control" id="lu"/></div>
+  <div class="form-group"><label>رمز</label><input type="password" class="form-control" id="lp"/></div>
+  <button class="btn btn-primary" style="width:100%;padding:12px" onclick="login()">ورود</button>
+</div></div>
+<div class="modal-bg" id="regM"><div class="modal">
+  <button class="modal-close" onclick="closeM('regM')">×</button>
+  <h3>ثبت‌نام</h3>
+  <div class="form-group"><label>موبایل</label><input class="form-control" id="rm"/></div>
+  <div class="form-group"><label>رمز</label><input type="password" class="form-control" id="rp"/></div>
+  <button class="btn btn-primary" style="width:100%;padding:12px" onclick="reg()">ثبت‌نام</button>
+</div></div>
+<script src="app.js"></script>
+<script>
+(function(){
+  var ROWS=[
+    {s:'BTC',n:'Bitcoin',p:'6,840,000,000',c:2.4,v:'1,240B',hot:1},
+    {s:'ETH',n:'Ethereum',p:'185,200,000',c:1.8,v:'820B',hot:1},
+    {s:'USDT',n:'Tether',p:'68,450',c:-0.1,v:'3,100B',hot:1},
+    {s:'SOL',n:'Solana',p:'12,400,000',c:4.2,v:'310B',hot:1},
+    {s:'CRYPTO',n:'CRYPTO',p:'12,850',c:8.6,v:'450B',hot:1},
+    {s:'DOGE',n:'Dogecoin',p:'12,850',c:5.6,v:'180B',hot:1},
+    {s:'XRP',n:'XRP',p:'4,120,000',c:-1.2,v:'280B',hot:1},
+    {s:'BNB',n:'BNB',p:'42,800,000',c:3.1,v:'410B',hot:1},
+    {s:'PEPE',n:'Pepe',p:'0.85',c:12.4,v:'210B',hot:1},
+    {s:'FIL',n:'Filecoin',p:'420,000',c:-3.1,v:'22B',hot:0}
+  ];
+  var mode='all';
+  function render(){
+    var list=ROWS.slice();
+    if(mode==='hot')list=list.filter(function(r){return r.hot});
+    if(mode==='up')list=list.slice().sort(function(a,b){return b.c-a.c});
+    if(mode==='down')list=list.slice().sort(function(a,b){return a.c-b.c});
+    var h='';
+    for(var i=0;i<list.length;i++){
+      var r=list[i],cls=r.c>=0?'up':'down',sign=r.c>=0?'+':'';
+      h+='<tr><td><div class="coin-cell"><div class="coin-icon" style="background:#1a2234;color:var(--primary)">'+r.s.slice(0,2)+'</div><div><div class="coin-name">'+r.n+'</div><div class="coin-sym">'+r.s+'</div></div></div></td>';
+      h+='<td style="font-weight:600">'+r.p+'</td><td class="'+cls+'">'+sign+r.c+'%</td><td style="color:var(--muted)">'+r.v+'</td>';
+      h+='<td><a href="trade.html" class="btn btn-primary btn-sm">معامله</a></td></tr>';
+    }
+    document.getElementById('homeBody').innerHTML=h;
+  }
+  window.homeTab=function(btn,m){mode=m;var btns=btn.parentNode.querySelectorAll('button');for(var i=0;i<btns.length;i++)btns[i].className='';btn.className='on';render()};
+  render();
+  var qs='buy';
+  window.qtSide=function(s){qs=s;document.getElementById('qtBuy').className=s==='buy'?'tab active-buy':'tab';document.getElementById('qtSell').className=s==='sell'?'tab active-sell':'tab';var b=document.getElementById('qtBtn');b.className=s==='buy'?'btn btn-green':'btn btn-red';b.style.cssText='width:100%;padding:13px';b.textContent=s==='buy'?'خرید BTC':'فروش BTC'};
+  window.qtCalc=function(){var amt=parseFloat(document.getElementById('qtAmt').value)||0;document.getElementById('qtGet').value=(amt/6840000000).toFixed(6)+' BTC'};
+  window.qtSubmit=function(){if(typeof toast==='function')toast(qs==='buy'?'سفارش خرید ثبت شد':'سفارش فروش ثبت شد')};
+})();
+</script>
+</body>
+</html>
